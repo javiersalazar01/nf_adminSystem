@@ -50,6 +50,8 @@ namespace nf_adminSystem
             utilicen este metodo para realizar consulas desde c#. sql es el string donde pondran la consulta
          * 
          * ejemplo: DataTable data = <obejto SQLConncetor>.consultar("select * from productos");
+         * 
+         * 
          */
         public DataTable consultar(string sql, string tabla)
         {
@@ -69,6 +71,24 @@ namespace nf_adminSystem
                 // MessageBox.Show("Error no se puede." + ex.Message + ex.StackTrace);
             }
             return ds.Tables[tabla];
+        }
+
+        public DataTable consultar(string sql)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                adapter = new NpgsqlDataAdapter(sql, con);
+                adapter.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show("Error no se puede." + ex.Message + ex.StackTrace);
+            }
+            return dt;
         }
 
 

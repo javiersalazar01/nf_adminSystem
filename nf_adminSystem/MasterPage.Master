@@ -101,7 +101,7 @@
                     <!-- dropdown tasks -->
                     <ul class="dropdown-menu dropdown-tasks">
                         <li>
-                            <a href="#">
+                            <a href="#"> 
                                 <div>
                                     <p>
                                         <strong>Task 1</strong>

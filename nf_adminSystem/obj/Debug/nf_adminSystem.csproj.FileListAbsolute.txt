@@ -13,6 +13,5 @@ C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_a
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\Mono.Security.dll
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\Npgsql.dll
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\Npgsql.resources.dll
-C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.csprojResolveAssemblyReference.cache
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.dll
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.pdb
