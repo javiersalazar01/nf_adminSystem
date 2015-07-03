@@ -4,10 +4,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <div id="page-wrapper">
-
             <div class="row">
                 <!-- Page Header -->
-                <div class="col-lg-12">
+                <div class="col-lg-12 margin-top-20">
                     <div class ="col-lg-2" >
                         <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control">
                             <asp:ListItem>UNISON</asp:ListItem>
@@ -29,11 +28,25 @@
                             <asp:ListItem>SubArea 3</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    
+                    <div class="col-md-1 col-lg-offset-3">   
+                        <a href="#" class="btn btn-default">
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-1">   
+                        <a href="#" class="btn btn-default">
+                            <span class="fa fa-pencil-square-o"></span>
+                        </a>
+                    </div> 
+                    <div class="col-md-1">   
+                        <a href="#" class="btn btn-default">
+                            <span class="fa fa-eraser"></span>
+                        </a>
+                    </div>   
                 </div>
                 <!--End Page Header -->
             </div>
-         <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover"></asp:GridView>
+         <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover margin-top-30"></asp:GridView>
      </div>
 
 </asp:Content>
