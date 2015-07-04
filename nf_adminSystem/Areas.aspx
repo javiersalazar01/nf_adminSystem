@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Areas.aspx.cs" Inherits="nf_adminSystem.Inicio" EnableEventValidation="False"%>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -14,31 +15,26 @@
                     </div>
                      <div class ="col-lg-2" >
                         <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" AutoPostBack="True" >
-                            <asp:ListItem>Area 1</asp:ListItem>
-                            <asp:ListItem>Area 2</asp:ListItem>
-                            <asp:ListItem>Area 3</asp:ListItem>
+                            
                         </asp:DropDownList>
                     </div>
                     <div class ="col-lg-2" >
                         <asp:DropDownList ID="DropDownList3" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged" >
-                            <asp:ListItem>SubArea 1</asp:ListItem>
-                            <asp:ListItem>SubArea 2</asp:ListItem>
-                            <asp:ListItem>SubArea 3</asp:ListItem>
+                            
                         </asp:DropDownList>
                     </div>
 
 
                     <div class="col-lg-1 col-lg-offset-3"> 
                         <asp:LinkButton ID="newBtn" CssClass="btn btn-default fa fa-plus" OnClick="newBtn_Click" runat="server"></asp:LinkButton>
-                        <%--<asp:ImageButton ID="new" runat="server" CssClass="btn btn-default fa fa-plus" OnClick="new_Click" AlternateText=" " />--%> 
                     </div>
 
                     <div class="col-lg-1">   
                         <asp:LinkButton ID="editBtn" CssClass="btn btn-default fa fa-pencil-square-o" OnClick="editBtn_Click" runat="server"></asp:LinkButton>
+
                     </div> 
                     <div class="col-lg-1"> 
-                        <asp:LinkButton ID="eraseBtn" CssClass="bnt btn-default fa fa-eraser" OnClick="eraseBtn_Click" runat="server"></asp:LinkButton>
-                      
+                        <asp:LinkButton ID="eraseBtn" CssClass="btn btn-default fa fa-eraser" OnClick="eraseBtn_Click" runat="server"></asp:LinkButton>
                     </div>   
                 </div>
                 <!--End Page Header -->
@@ -47,6 +43,13 @@
              <Columns>
              </Columns>
          </asp:GridView>
+         <asp:Panel ID="Panel1" runat="server" style="display:none" >
+                <h1>putas</h1>
+             <asp:Button ID="btnClose" runat="server" Text="Button" />
+         </asp:Panel>
+
+         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+         <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server"  PopupControlID="Panel1" OkControlID="btnClose"  DropShadow="true" TargetControlID="newBtn"></cc1:ModalPopupExtender>
      </div>
 
 </asp:Content>

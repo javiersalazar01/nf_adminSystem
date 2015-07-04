@@ -15,3 +15,10 @@ C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\Npgs
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\Npgsql.resources.dll
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.dll
 C:\Users\franciscojavier\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.pdb
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.dll.config
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.dll
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.pdb
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.csprojResolveAssemblyReference.cache
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.dll
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.pdb
+C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\AjaxControlToolkit.dll

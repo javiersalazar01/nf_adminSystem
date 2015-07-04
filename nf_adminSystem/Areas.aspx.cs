@@ -16,6 +16,7 @@ namespace nf_adminSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 clear();
@@ -26,9 +27,11 @@ namespace nf_adminSystem
         {
             ins = pg.consultar("SELECT * FROM institution");
             DataTable insClon = ins.Copy();
-            insClon.Columns.Remove("iID");
             GridView1.DataSource = insClon;
             GridView1.DataBind();
+
+            ViewState["tipoTabla"] = "institution";
+
             DropDownList1.DataSource = ins;
             DropDownList1.DataTextField = "name";
             DropDownList1.DataValueField = "iID";
@@ -50,10 +53,8 @@ namespace nf_adminSystem
             string id = dwlSelect.SelectedValue;
 
             //Response.Write("<script>alert('"+query+"');</script>");
-            DataTable instXArea = pg.consultar(query + id);
-            DataTable Clon = instXArea.Copy();
-            Clon.Columns.RemoveAt(0);
-            GridView1.DataSource = Clon;
+            DataTable dt = pg.consultar(query + id);
+            GridView1.DataSource = dt;
             GridView1.DataBind();
         }
 
@@ -63,13 +64,12 @@ namespace nf_adminSystem
             string id = dwlSelect.SelectedValue;
 
             //Response.Write("<script>alert('"+query+"');</script>");
-            DataTable instXArea = pg.consultar(query + id);
-            DataTable Clon = instXArea.Copy();
-            Clon.Columns.RemoveAt(0);
-            GridView1.DataSource = Clon;
+            DataTable dt = pg.consultar(query + id);
+            GridView1.DataSource = dt;
             GridView1.DataBind();
 
-            dwlFill.DataSource = instXArea;
+
+            dwlFill.DataSource = dt;
             dwlFill.DataTextField = "name";
             dwlFill.DataValueField = "iID";
             dwlFill.DataBind();
@@ -81,31 +81,7 @@ namespace nf_adminSystem
 
         }
 
-        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
-                e.Row.ToolTip = "Click Para Seleccionar";
-            }
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in GridView1.Rows)
-            {
-                if (row.RowIndex == GridView1.SelectedIndex)
-                {
-                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
-                    row.ToolTip = string.Empty;
-                }
-                else
-                {
-                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
-                    row.ToolTip = "Click Para Seleccionar";
-                }
-            }
-        }
+        
 
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,6 +95,7 @@ namespace nf_adminSystem
                    "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
                    "Areas"
                    );
+                ViewState["tipoTabla"] = "area";
                 DropDownList3.Items.Clear();
                 DropDownList3.Items.Add("Seleccione Area");
             }
@@ -126,8 +103,6 @@ namespace nf_adminSystem
             {
                 clear();
             }
-            
-            
         }
 
         protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
@@ -141,6 +116,7 @@ namespace nf_adminSystem
                     "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
                      "SubAreas"
                    );
+                ViewState["tipoTabla"] = "subarea";
             }
             else
             {
@@ -151,7 +127,10 @@ namespace nf_adminSystem
                    "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
                    "Areas"
                    );
+                ViewState["tipoTabla"] = "area";
+
             }
+
             
         }
 
@@ -162,6 +141,8 @@ namespace nf_adminSystem
                 cambio(DropDownList3,
                    "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
                    "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
+                ViewState["tipoTabla"] = "notification";
+
             }
             else
             {
@@ -172,6 +153,8 @@ namespace nf_adminSystem
                     "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
                      "SubAreas"
                    );
+                ViewState["tipoTabla"] = "subarea";
+
             }
             
         }
@@ -190,8 +173,88 @@ namespace nf_adminSystem
         protected void eraseBtn_Click(object sender, EventArgs e)
         {
 
+            string selectedID = GridView1.SelectedRow.Cells[0].Text;
+            string tipoTabla = ViewState["tipoTabla"].ToString();
+            string query = "DELETE FROM " + tipoTabla + " WHERE \"iID\"= " + selectedID;
+            if (pg.modificar(query))
+            {
+                Response.Write("<script>alert('Restros Eliminados + " + query + "');</script>");
+                switch (tipoTabla)
+                {
+                    case "notification":
+
+                        cambio(DropDownList3,
+                          "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
+                          "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
+
+                        break;
+
+                    case "subarea":
+                        cambio(
+                           DropDownList2,
+                           DropDownList3,
+                           "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
+                            "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                             "SubAreas"
+                           );
+
+                        break;
+
+                    case "area":
+                        cambio(
+                           DropDownList1,
+                           DropDownList2,
+                           "select a.\"iID\",a.name,a.description from " +
+                           "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
+                           "Areas"
+                           );
+                        DropDownList3.Items.Clear();
+                        DropDownList3.Items.Add("Seleccione Area");
+                        break;
+
+                    case "institution":
+                        clear();
+                        break;
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Restros No Eliminados');</script>");
+            }
+
         }
 
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.ToolTip = "Click Para Seleccionar";
+            }
+
+            e.Row.Cells[0].Visible = false;
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selected = GridView1.SelectedIndex;
+
+            foreach (GridViewRow row in GridView1.Rows)
+            {
+                if (row.RowIndex == GridView1.SelectedIndex)
+                {
+                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    row.ToolTip = string.Empty;
+                }
+                else
+                {
+                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    row.ToolTip = "Click Para Seleccionar";
+                }
+            }
+        }
+
+     
         
     }
 }
