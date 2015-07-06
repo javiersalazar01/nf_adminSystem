@@ -4,6 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:HiddenField ID="HiddenField2" runat="server" Value="123" />
     <asp:HiddenField ID="HiddenField1" runat="server" Value="123" />
     
              <div id="page-wrapper">
@@ -59,19 +60,23 @@
                   <%--Mensage en caso de no seleccionar registro--%>
                 
                  <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" style="display:none" >
-                        <div class="header">
-                            <p><% Response.Write(headerText); %></p>
-                        </div>
-                        <div class="body">
-                            <p><% Response.Write(bodyText); %></p>
-                        </div>
-                        <div class="footer" style="text-align: right;">
-                            <asp:Button ID="Button1"  runat="server" Text="Acceptar" CssClass="yes" />
-                        </div>
+                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
+                            <ContentTemplate>
+                                <div class="header">
+                                    <p><% Response.Write(headerText); %></p>
+                                </div>
+                                <div class="body">
+                                    <p><% Response.Write(bodyText); %></p>
+                                </div>
+                                <div class="footer" style="text-align: right;">
+                                    <asp:Button ID="Button1"  runat="server" Text="Acceptar" CssClass="yes" />
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>    
                  </asp:Panel>
 
                  <cc1:ModalPopupExtender ID="ModalPopupExtender2" runat="server"  PopupControlID="Panel2" 
-                     OkControlID="Button1" DropShadow="true" TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+                     OkControlID="Button1" DropShadow="true" TargetControlID="HiddenField2" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
 
                  <%-- Panel donde se muestra el mensage para eliminar un registro --%>
          
@@ -101,8 +106,5 @@
                      CancelControlID="btnNo" DropShadow="true"  TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
             </div>
         
-        <%--<Triggers>
-            <asp:PostBackTrigger ControlID="btnYes" />
-        </Triggers> --%>
    
 </asp:Content>

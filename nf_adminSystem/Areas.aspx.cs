@@ -52,6 +52,7 @@ namespace nf_adminSystem
 
         public void cambio(DropDownList dwlSelect, string query)
         {
+
             GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
@@ -63,7 +64,9 @@ namespace nf_adminSystem
 
 
         public void cambio(DropDownList dwlSelect, DropDownList dwlFill, string query,string msg)
+
         {
+
             GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
@@ -185,9 +188,11 @@ namespace nf_adminSystem
             if (GridView1.SelectedIndex == -1)
             {
                 msgPopUp("Error","Seleccione un elemento.");
+                ModalPopupExtender2.Show();
             }
             else
             {
+               // msgPopUp("Error", GridView1.SelectedIndex.ToString());
                 Label1.Text = "";
                 ModalPopupExtender1.Show();
             }
