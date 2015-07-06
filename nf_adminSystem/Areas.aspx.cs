@@ -244,6 +244,7 @@ namespace nf_adminSystem
                             clear();
                             break;
                     }
+                    
                 }
                 else
                 {
