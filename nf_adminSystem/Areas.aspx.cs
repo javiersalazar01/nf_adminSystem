@@ -25,6 +25,7 @@ namespace nf_adminSystem
 
         public void clear()
         {
+            GridView1.SelectedIndex = -1;
             ins = pg.consultar("SELECT * FROM institution");
             DataTable insClon = ins.Copy();
             GridView1.DataSource = insClon;
@@ -50,6 +51,7 @@ namespace nf_adminSystem
 
         public void cambio(DropDownList dwlSelect, string query)
         {
+            GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
             //Response.Write("<script>alert('"+query+"');</script>");
@@ -61,6 +63,7 @@ namespace nf_adminSystem
 
         public void cambio(DropDownList dwlSelect, DropDownList dwlFill, string query,string msg)
         {
+            GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
             //Response.Write("<script>alert('"+query+"');</script>");
@@ -107,6 +110,7 @@ namespace nf_adminSystem
 
         protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (DropDownList2.SelectedValue != "0")
             {
                 cambio(
@@ -172,57 +176,75 @@ namespace nf_adminSystem
 
         protected void eraseBtn_Click(object sender, EventArgs e)
         {
-
-            string selectedID = GridView1.SelectedRow.Cells[0].Text;
-            string tipoTabla = ViewState["tipoTabla"].ToString();
-            string query = "DELETE FROM " + tipoTabla + " WHERE \"iID\"= " + selectedID;
-            if (pg.modificar(query))
+            if (GridView1.SelectedIndex == -1)
             {
-                Response.Write("<script>alert('Restros Eliminados + " + query + "');</script>");
-                switch (tipoTabla)
-                {
-                    case "notification":
-
-                        cambio(DropDownList3,
-                          "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
-                          "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
-
-                        break;
-
-                    case "subarea":
-                        cambio(
-                           DropDownList2,
-                           DropDownList3,
-                           "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                            "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
-                             "SubAreas"
-                           );
-
-                        break;
-
-                    case "area":
-                        cambio(
-                           DropDownList1,
-                           DropDownList2,
-                           "select a.\"iID\",a.name,a.description from " +
-                           "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                           "Areas"
-                           );
-                        DropDownList3.Items.Clear();
-                        DropDownList3.Items.Add("Seleccione Area");
-                        break;
-
-                    case "institution":
-                        clear();
-                        break;
-                }
+                ModalPopupExtender2.Show();
             }
             else
             {
-                Response.Write("<script>alert('Restros No Eliminados');</script>");
+                ModalPopupExtender1.Show();
             }
-
         }
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script>alert('debug');</script>");
+            string securityPass = securityPassword.Text;
+            if (securityPass == "123")
+            {
+                string selectedID = GridView1.SelectedRow.Cells[0].Text;
+                string tipoTabla = ViewState["tipoTabla"].ToString();
+                string query = "DELETE FROM " + tipoTabla + " WHERE \"iID\"= " + selectedID;
+                if (pg.modificar(query))
+                {
+                    Response.Write("<script>alert('Restros Eliminados - " + query + "');</script>");
+                    switch (tipoTabla)
+                    {
+                        case "notification":
+
+                            cambio(DropDownList3,
+                              "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
+                              "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
+
+                            break;
+
+                        case "subarea":
+                            cambio(
+                               DropDownList2,
+                               DropDownList3,
+                               "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
+                                "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                                 "SubAreas"
+                               );
+
+                            break;
+
+                        case "area":
+                            cambio(
+                               DropDownList1,
+                               DropDownList2,
+                               "select a.\"iID\",a.name,a.description from " +
+                               "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
+                               "Areas"
+                               );
+                            DropDownList3.Items.Clear();
+                            DropDownList3.Items.Add("Seleccione Area");
+                            break;
+
+                        case "institution":
+                            clear();
+                            break;
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Restros No Eliminados');</script>");
+                }
+            }
+           
+        }
+
+        
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -253,6 +275,8 @@ namespace nf_adminSystem
                 }
             }
         }
+
+        
 
      
         
