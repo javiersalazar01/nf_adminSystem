@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <asp:HiddenField ID="HiddenField1" runat="server" Value="123" />
      <div id="page-wrapper">
             <div class="row">
                 <!-- Page Header -->
@@ -49,10 +49,10 @@
          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
          <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" style="display:none" >
                 <div class="header">
-                    Error
+                    <p><% Response.Write(headerText); %></p>
                 </div>
                 <div class="body">
-                    <p>Debe Seleccionar un Regisro </p>
+                    <p><% Response.Write(bodyText); %></p>
                 </div>
                 <div class="footer" style="text-align: right;">
                     <asp:Button ID="Button1"  runat="server" Text="Acceptar" CssClass="yes" />
@@ -63,30 +63,32 @@
              OkControlID="Button1" DropShadow="true" TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
 
          <%-- Panel donde se muestra el mensage para eliminar un registro --%>
-         <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" style="display:none" >
-                <div class="header">
-                    Confirmacion
-                </div>
-                <div class="body">
-                    <p>Si elimina este registro, se eliminaran todos los registros anidados <br />
-                        si esta seguro, porfavor introdusca su contraseña. <br />
-                    </p>
+         
+             <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" style="display:none"> 
+                 <asp:UpdatePanel ID="PanelUpdate" runat="server" >
+                    <ContentTemplate>
+                        <div class="header">
+                            Confirmacion
+                        </div>
+                        <div class="body">
+                            <p>Si elimina este registro, se eliminaran todos los registros anidados <br />
+                                si esta seguro, porfavor introdusca su contraseña. <br />
+                            </p>
                     
-                    <asp:TextBox ID="securityPassword" TextMode="password" CssClass="centro form-control" runat="server" ></asp:TextBox>
-
-                </div>
-                <div class="footer" style="text-align: right;" >
-                    <asp:ChangePassword ID="ChangePassword1" runat="server"></asp:ChangePassword>
-                    <asp:Button ID="btnYes" runat="server" Text="Acceptar" CssClass="yes" OnClick="btnYes_Click" />
-                    <asp:Button ID="btnNo" runat="server" Text="Cancelar" CssClass="no"  />
-                </div>
-         </asp:Panel>
-
+                            <asp:TextBox ID="securityPassword" TextMode="password" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                            <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                        </div>
+                        <div class="footer" style="text-align: right;" >
+                            <asp:Button ID="btnYes" runat="server" Text="Acceptar" CssClass="yes" OnClick="btnYes_Click" />
+                            <asp:Button ID="btnNo" runat="server" Text="Cancelar" CssClass="no"  OnClick="btnNo_Click"/>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+          </asp:Panel>
+            
          <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server"  PopupControlID="Panel1" 
              CancelControlID="btnNo" DropShadow="true"  TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
          
-
-
 
 
     </div>

@@ -81,7 +81,8 @@
     <Content Include="assets\plugins\bootstrap\bootstrap.css" />
     <Content Include="assets\plugins\bootstrap\bootstrap.js" />
     <Content Include="assets\plugins\bootstrap\bootstrap.min.js" />
-    <Content Include="assets\plugins\jquery-1.10.2.js" />
+    <Content Include="assets\plugins\Jquery\jquery-2.1.4.js" />
+    <Content Include="assets\plugins\Jquery\jquery-2.1.4.min.js" />
     <Content Include="assets\plugins\metisMenu\jquery.metisMenu.js" />
     <Content Include="assets\plugins\pace\pace-theme-big-counter.css" />
     <Content Include="assets\plugins\pace\pace.js" />
@@ -90,6 +91,7 @@
     <Content Include="assets\scripts\siminta.js" />
     <Content Include="Default.aspx" />
     <Content Include="Areas.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Web.config" />
@@ -108,6 +110,9 @@
     </Compile>
     <Compile Include="Areas.aspx.designer.cs">
       <DependentUpon>Areas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

@@ -13,10 +13,11 @@ namespace nf_adminSystem
     {
         DataTable ins;
         PgConnector pg = PgConnector.getInstance();
-
+        public string bodyText = "";
+        public string headerText = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            HiddenField1.Value = "123";
             if (!IsPostBack)
             {
                 clear();
@@ -71,7 +72,6 @@ namespace nf_adminSystem
             GridView1.DataSource = dt;
             GridView1.DataBind();
 
-
             dwlFill.DataSource = dt;
             dwlFill.DataTextField = "name";
             dwlFill.DataValueField = "iID";
@@ -84,6 +84,13 @@ namespace nf_adminSystem
 
         }
 
+        public void msgPopUp(string header, string body)
+        {
+            bodyText = body;
+            headerText = header;
+            ModalPopupExtender2.Show();
+
+        }
         
 
 
@@ -135,7 +142,6 @@ namespace nf_adminSystem
 
             }
 
-            
         }
 
         protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,26 +184,29 @@ namespace nf_adminSystem
         {
             if (GridView1.SelectedIndex == -1)
             {
-                ModalPopupExtender2.Show();
+                msgPopUp("Error","Seleccione un elemento.");
             }
             else
             {
+                Label1.Text = "";
                 ModalPopupExtender1.Show();
             }
         }
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>alert('debug');</script>");
+            
             string securityPass = securityPassword.Text;
             if (securityPass == "123")
             {
+                
                 string selectedID = GridView1.SelectedRow.Cells[0].Text;
                 string tipoTabla = ViewState["tipoTabla"].ToString();
                 string query = "DELETE FROM " + tipoTabla + " WHERE \"iID\"= " + selectedID;
                 if (pg.modificar(query))
                 {
-                    Response.Write("<script>alert('Restros Eliminados - " + query + "');</script>");
+                    //Response.Write("<script>alert('Restros Eliminados - " + query + "');</script>");
+                    ModalPopupExtender1.Hide();
                     switch (tipoTabla)
                     {
                         case "notification":
@@ -241,7 +250,17 @@ namespace nf_adminSystem
                     Response.Write("<script>alert('Restros No Eliminados');</script>");
                 }
             }
+            else
+            {
+                Label1.Text = "Contraseña Incorrecta";
+                Label1.ForeColor = Color.Red;
+            }
            
+        }
+
+        protected void btnNo_Click(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.Hide();
         }
 
         
