@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:HiddenField ID="HiddenField2" runat="server" Value="123" />
     <asp:HiddenField ID="HiddenField1" runat="server" Value="123" />
-    
+    <asp:HiddenField ID="HiddenField3" runat="server" />
              <div id="page-wrapper">
                  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                  <asp:UpdatePanel ID="UpdatePanelTodo" runat="server">
@@ -51,7 +51,7 @@
                              <Columns>
                              </Columns>
                          </asp:GridView>
-
+                        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                 
          
                     </ContentTemplate>
@@ -104,6 +104,40 @@
             
                  <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server"  PopupControlID="Panel1" 
                      CancelControlID="btnNo" DropShadow="true"  TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+
+
+                 <%-- Panel Editar institution  --%>
+         
+                     <asp:Panel ID="Panel3" runat="server" CssClass="modalPopup" style="display:none"> 
+                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" >
+                            <ContentTemplate>
+                                <div class="header">
+                                    Institucion
+                                </div>
+                                <div class="body">
+
+                                    <asp:Label ID="Label3" runat="server" Text="nombre"></asp:Label>
+                                    <asp:TextBox ID="nameIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                                    <br />
+
+                                    <asp:Label ID="Label4" runat="server" Text="descripcion: "></asp:Label>
+                                    <asp:TextBox ID="descriptionIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+
+                                    <br />
+                                    <asp:Label ID="Label5" runat="server" Text="imagen"></asp:Label>
+                                    <asp:TextBox ID="imageIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                                    
+                                </div>
+                                <div class="footer" style="text-align: right;" >
+                                    <asp:Button ID="submitEditarInstitution" runat="server" Text="Editar" CssClass="yes" OnClick="submitEditarInstitution_Click" />
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                  </asp:Panel>
+            
+                 <cc1:ModalPopupExtender ID="mpeInstitution" runat="server"  PopupControlID="Panel3"
+                     CancelControlID="submitEditarInstitution" DropShadow="true" TargetControlID="HiddenField3" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+
             </div>
         
    

@@ -297,6 +297,9 @@
                      <li>
                         <a href="Usuarios.aspx"><i class="fa fa-flask fa-fw"></i>Usuarios</a>
                     </li>
+                    <li>
+                        <a href="Calendario.aspx"><i class="fa fa-flask fa-fw"></i>Calendario</a>
+                    </li>
                    
                 </ul>
                 <!-- end side-menu -->
