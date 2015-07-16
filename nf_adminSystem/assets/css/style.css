@@ -342,6 +342,8 @@ table.dataTable thead .sorting:after {
         filter: alpha(opacity=60) ;
         opacity: 0.6 ;
     }
+
+
     .modalPopup
     {
         background-color: #FFFFFF ;
@@ -397,7 +399,11 @@ table.dataTable thead .sorting:after {
     .centro {
         margin: 0 auto 0 auto;
         width: 70%;
+    }
 
+    .cincuenta 
+    {
+        width: 50%;
     }
 
     /*END modal popup styles*/

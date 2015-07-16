@@ -93,7 +93,7 @@ namespace nf_adminSystem
                 case "notification":
 
                     cambio(DropDownList3,
-                      "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
+                      "SELECT n.\"iID\",n.title,n.description,n.image,n.date,n.url " +
                       "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
 
                     break;
@@ -209,7 +209,7 @@ namespace nf_adminSystem
                 ViewState["tipoTabla"] = "subarea";
 
             }
-            
+
         }
 
 
@@ -228,7 +228,7 @@ namespace nf_adminSystem
 	        {
 		        msgPopUp("Error","Seleccione un elemento.");
                 ModalPopupExtender2.Show();
-	        } 
+	        }
             else
 	        {
                 tabla = Convert.ToString(ViewState["tipoTabla"]);
@@ -243,15 +243,28 @@ namespace nf_adminSystem
                         break;
 
                     case "area":
-
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        nameAreaYsub.Text = Convert.ToString(dt.Rows[0][1]);
+                        desAreaYsub.Text = Convert.ToString(dt.Rows[0][2]);
+                        lblHeadr.Text = "Area";
+                        mpuAreaYSubArea.Show();
                         break;
 
                     case "subarea":
-
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        nameAreaYsub.Text = Convert.ToString(dt.Rows[0][1]);
+                        desAreaYsub.Text = Convert.ToString(dt.Rows[0][2]);
+                        lblHeadr.Text = "SubArea";
+                        mpuAreaYSubArea.Show();
                         break;
 
                     case "notification":
-
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        titleNoti.Text = Convert.ToString(dt.Rows[0][1]);
+                        desNotifi.Text = Convert.ToString(dt.Rows[0][2]);
+                        imageNoti.Text = Convert.ToString(dt.Rows[0][5]);
+                        urlNoti.Text = Convert.ToString(dt.Rows[0][6]);
+                        mpeNotification.Show();
                         break;
                 }
 	        }
@@ -269,6 +282,8 @@ namespace nf_adminSystem
             string campo1;
             string campo2;
             string campo3;
+            string campo4;
+            string campo5;
 
             switch (tabla)
             {
@@ -276,21 +291,38 @@ namespace nf_adminSystem
                     campo1 = nameIns.Text;
                     campo2 = descriptionIns.Text;
                     campo3 = imageIns.Text;
-                    pg.modificar("UPDATE institution SET name = '" + campo1 + "' ,description = '" + campo2 + "',image = '" + campo3 + "' WHERE \"iID\" = " + selectedId);
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "',image = '" + campo3 + "' WHERE \"iID\" = " + selectedId);
                     update();
                     mpeInstitution.Hide();
                     break;
 
                 case "area":
-
+                    campo1 = nameAreaYsub.Text;
+                    campo2 = desAreaYsub.Text;
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpuAreaYSubArea.Hide();
                     break;
 
                 case "subarea":
-
+                    campo1 = nameAreaYsub.Text;
+                    campo2 = desAreaYsub.Text;
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpuAreaYSubArea.Hide();
                     break;
 
                 case "notification":
-
+                    campo1 = titleNoti.Text;
+                    campo2 = desNotifi.Text;
+                    DateTime dt = DateTime.Now;
+                    campo4 = imageNoti.Text;
+                    campo5 = urlNoti.Text;
+                    pg.modificar("UPDATE " + tabla + " SET title = '" + campo1 + "' ," +
+                                    "description = '" + campo2 + "' ,date = '" + dt.ToString("yyyy-MM-dd") + "' ," +
+                                    "image = '" + campo4 + "',url = '" + campo5 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpeNotification.Hide();
                     break;
             }
             
@@ -305,7 +337,7 @@ namespace nf_adminSystem
             }
             else
             {
-               // msgPopUp("Error", GridView1.SelectedIndex.ToString());
+               //msgPopUp("Error", GridView1.SelectedIndex.ToString());
                 Label1.Text = "";
                 ModalPopupExtender1.Show();
             }
@@ -375,6 +407,26 @@ namespace nf_adminSystem
                     row.ToolTip = "Click Para Seleccionar";
                 }
             }
+        }
+
+        protected void btnEditarInsCancelar_Click(object sender, EventArgs e)
+        {
+            mpeInstitution.Hide();
+        }
+
+        protected void btnEditarAreaSubCancelar_Click(object sender, EventArgs e)
+        {
+            mpuAreaYSubArea.Hide();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnEditarNotificationCancelar_Click(object sender, EventArgs e)
+        {
+            mpeNotification.Hide();
         }
 
         

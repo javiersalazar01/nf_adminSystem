@@ -6,6 +6,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:HiddenField ID="HiddenField2" runat="server" Value="123" />
     <asp:HiddenField ID="HiddenField1" runat="server" Value="123" />
+    <asp:HiddenField ID="HiddenField4" runat="server" />
+    <asp:HiddenField ID="HiddenField5" runat="server" />
     <asp:HiddenField ID="HiddenField3" runat="server" />
              <div id="page-wrapper">
                  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -108,14 +110,13 @@
 
                  <%-- Panel Editar institution  --%>
          
-                     <asp:Panel ID="Panel3" runat="server" CssClass="modalPopup" style="display:none"> 
+                     <asp:Panel ID="Panel3" runat="server" CssClass="modalPopup" style="display:none; width: 170%;"> 
                          <asp:UpdatePanel ID="UpdatePanel2" runat="server" >
                             <ContentTemplate>
                                 <div class="header">
                                     Institucion
                                 </div>
                                 <div class="body">
-
                                     <asp:Label ID="Label3" runat="server" Text="nombre"></asp:Label>
                                     <asp:TextBox ID="nameIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
                                     <br />
@@ -130,13 +131,85 @@
                                 </div>
                                 <div class="footer" style="text-align: right;" >
                                     <asp:Button ID="submitEditarInstitution" runat="server" Text="Editar" CssClass="yes" OnClick="submitEditarInstitution_Click" />
+                                    <asp:Button ID="btnEditarInsCancelar" runat="server" Text="Cancelar" CssClass="no" OnClick="btnEditarInsCancelar_Click"/>
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                   </asp:Panel>
             
                  <cc1:ModalPopupExtender ID="mpeInstitution" runat="server"  PopupControlID="Panel3"
-                     CancelControlID="submitEditarInstitution" DropShadow="true" TargetControlID="HiddenField3" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+                     CancelControlID="btnEditarInsCancelar" DropShadow="true" TargetControlID="HiddenField3" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+
+
+                 <%-- Panel Editar Area y SubArea  --%>
+         
+                     <asp:Panel ID="Panel4" runat="server" CssClass="modalPopup" style="display:none; width: 170%;"> 
+                         <asp:UpdatePanel ID="UpdatePanel3" runat="server" >
+                            <ContentTemplate>
+                                <div class="header">
+                                    <asp:Label ID="lblHeadr" runat="server" Text="Label"></asp:Label>
+                                </div>
+                                <div class="body">
+
+                                    <asp:Label ID="Label6" runat="server" Text="nombre"></asp:Label>
+                                    <asp:TextBox ID="nameAreaYsub" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                                    <br />
+
+                                    <asp:Label ID="Label7" runat="server" Text="descripcion: "></asp:Label>
+                                    <asp:TextBox ID="desAreaYsub" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+
+                                    
+                                </div>
+                                <div class="footer" style="text-align: right;" >
+                                    <asp:Button ID="submitEditarAreaYSubArea" runat="server" Text="Editar" CssClass="yes" OnClick="submitEditarInstitution_Click" />
+                                    <asp:Button ID="btnEditarAreaSubCancelar" runat="server" Text="Cancelar" CssClass="no" OnClick="btnEditarAreaSubCancelar_Click"/>
+
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                  </asp:Panel>
+            
+                 <cc1:ModalPopupExtender ID="mpuAreaYSubArea" runat="server"  PopupControlID="Panel4"
+                      DropShadow="true" TargetControlID="HiddenField4" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+
+                 <%-- Panel Editar Notification  --%>
+         
+                     <asp:Panel ID="Panel5" runat="server" CssClass="modalPopup" style="display:none; width: 170%;"> 
+                         <asp:UpdatePanel ID="UpdatePanel4" runat="server" >
+                            <ContentTemplate>
+                                <div class="header">
+                                    <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
+                                </div>
+                                <div class="body">
+
+                                    <asp:Label ID="Label9" runat="server" Text="Titulo"></asp:Label>
+                                    <asp:TextBox ID="titleNoti" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+
+                                    <br />
+                                    <asp:Label ID="Label10" runat="server" Text="descripcion: "></asp:Label>
+                                    <asp:TextBox ID="desNotifi" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>
+                                    
+                                    <br />
+                                    <asp:Label ID="Label12" runat="server" Text="Imagen: "></asp:Label>
+                                    <asp:TextBox ID="imageNoti" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>  
+
+                                    <br />
+                                    <asp:Label ID="Label13" runat="server" Text="Url: "></asp:Label>
+                                    <asp:TextBox ID="urlNoti" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>  
+
+                                    
+                                </div>
+                                <div class="footer" style="text-align: right;" >
+                                    <asp:Button ID="submitEditarNotification" runat="server" Text="Editar" CssClass="yes" OnClick="submitEditarInstitution_Click" />
+                                    <asp:Button ID="btnEditarNotificationCancelar" runat="server" Text="Cancelar" CssClass="no" OnClick="btnEditarNotificationCancelar_Click"/>
+
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                  </asp:Panel>
+            
+                 <cc1:ModalPopupExtender ID="mpeNotification" runat="server"  PopupControlID="Panel5"
+                      DropShadow="true" TargetControlID="HiddenField5" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
 
             </div>
         
