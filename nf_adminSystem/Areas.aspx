@@ -49,7 +49,7 @@
                         </div>
 
                  <%-- grid donde se muestra la informacion --%>
-                         <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover margin-top-30" OnRowDataBound="GridView1_RowDataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" >
+                         <asp:GridView ID="GridView1" runat="server" CssClass="bordered margin-top-30" OnRowDataBound="GridView1_RowDataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" >
                              <Columns>
                              </Columns>
                          </asp:GridView>
