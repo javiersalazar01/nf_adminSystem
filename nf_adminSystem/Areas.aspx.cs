@@ -29,9 +29,9 @@ namespace nf_adminSystem
             GridView1.SelectedIndex = -1;
             ins = pg.consultar("SELECT * FROM institution");
             DataTable insClon = ins.Copy();
-            GridView1.DataSource = insClon;
+            GridView1.DataSource = ins;
             GridView1.DataBind();
-
+            
             ViewState["tipoTabla"] = "institution";
 
             DropDownList1.DataSource = ins;
@@ -52,6 +52,7 @@ namespace nf_adminSystem
 
         public void cambio(DropDownList dwlSelect, string query)
         {
+
             GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
@@ -63,6 +64,7 @@ namespace nf_adminSystem
 
 
         public void cambio(DropDownList dwlSelect, DropDownList dwlFill, string query,string msg)
+
         {
             GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
@@ -82,6 +84,47 @@ namespace nf_adminSystem
             l.Value = "0";
             dwlFill.Items.Insert(0, l);
 
+        }
+
+        public void update() {
+            string tipoTabla = ViewState["tipoTabla"].ToString();
+            switch (tipoTabla)
+            {
+                case "notification":
+
+                    cambio(DropDownList3,
+                      "SELECT n.\"iID\",n.title,n.description,n.image,n.date,n.url " +
+                      "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
+
+                    break;
+
+                case "subarea":
+                    cambio(
+                       DropDownList2,
+                       DropDownList3,
+                       "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
+                        "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                         "SubAreas"
+                       );
+
+                    break;
+
+                case "area":
+                    cambio(
+                       DropDownList1,
+                       DropDownList2,
+                       "select a.\"iID\",a.name,a.description from " +
+                       "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
+                       "Areas"
+                       );
+                    DropDownList3.Items.Clear();
+                    DropDownList3.Items.Add("Seleccione Area");
+                    break;
+
+                case "institution":
+                    clear();
+                    break;
+            }
         }
 
         public void msgPopUp(string header, string body)
@@ -149,7 +192,7 @@ namespace nf_adminSystem
             if (DropDownList3.SelectedValue != "0")
             {
                 cambio(DropDownList3,
-                   "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
+                   "SELECT n.\"iID\",n.title,n.description,n.image,n.date,n.url " +
                    "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
                 ViewState["tipoTabla"] = "notification";
 
@@ -166,7 +209,7 @@ namespace nf_adminSystem
                 ViewState["tipoTabla"] = "subarea";
 
             }
-            
+
         }
 
 
@@ -177,7 +220,112 @@ namespace nf_adminSystem
 
         protected void editBtn_Click(object sender, EventArgs e)
         {
+            string tabla = "";
+            DataTable dt;
+            string selectedId =  GridView1.SelectedRow.Cells[0].Text;
 
+            if (GridView1.SelectedIndex == -1)
+	        {
+		        msgPopUp("Error","Seleccione un elemento.");
+                ModalPopupExtender2.Show();
+	        }
+            else
+	        {
+                tabla = Convert.ToString(ViewState["tipoTabla"]);
+                switch (tabla)
+                {
+                    case "institution":
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        nameIns.Text = Convert.ToString(dt.Rows[0][1]);
+                        descriptionIns.Text = Convert.ToString(dt.Rows[0][2]);
+                        imageIns.Text = Convert.ToString(dt.Rows[0][3]);
+                        mpeInstitution.Show();
+                        break;
+
+                    case "area":
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        nameAreaYsub.Text = Convert.ToString(dt.Rows[0][1]);
+                        desAreaYsub.Text = Convert.ToString(dt.Rows[0][2]);
+                        lblHeadr.Text = "Area";
+                        mpuAreaYSubArea.Show();
+                        break;
+
+                    case "subarea":
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        nameAreaYsub.Text = Convert.ToString(dt.Rows[0][1]);
+                        desAreaYsub.Text = Convert.ToString(dt.Rows[0][2]);
+                        lblHeadr.Text = "SubArea";
+                        mpuAreaYSubArea.Show();
+                        break;
+
+                    case "notification":
+                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        titleNoti.Text = Convert.ToString(dt.Rows[0][1]);
+                        desNotifi.Text = Convert.ToString(dt.Rows[0][2]);
+                        imageNoti.Text = Convert.ToString(dt.Rows[0][5]);
+                        urlNoti.Text = Convert.ToString(dt.Rows[0][6]);
+                        mpeNotification.Show();
+                        break;
+                }
+	        }
+            
+            //Label2.Text = GridView1.SelectedRow.Cells[0].Text;
+            
+        }
+
+        protected void submitEditarInstitution_Click(object sender, EventArgs e)
+        {
+
+            string tabla = Convert.ToString(ViewState["tipoTabla"]);
+            string selectedId =  GridView1.SelectedRow.Cells[0].Text;
+
+            string campo1;
+            string campo2;
+            string campo3;
+            string campo4;
+            string campo5;
+
+            switch (tabla)
+            {
+                case "institution":
+                    campo1 = nameIns.Text;
+                    campo2 = descriptionIns.Text;
+                    campo3 = imageIns.Text;
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "',image = '" + campo3 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpeInstitution.Hide();
+                    break;
+
+                case "area":
+                    campo1 = nameAreaYsub.Text;
+                    campo2 = desAreaYsub.Text;
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpuAreaYSubArea.Hide();
+                    break;
+
+                case "subarea":
+                    campo1 = nameAreaYsub.Text;
+                    campo2 = desAreaYsub.Text;
+                    pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpuAreaYSubArea.Hide();
+                    break;
+
+                case "notification":
+                    campo1 = titleNoti.Text;
+                    campo2 = desNotifi.Text;
+                    DateTime dt = DateTime.Now;
+                    campo4 = imageNoti.Text;
+                    campo5 = urlNoti.Text;
+                    pg.modificar("UPDATE " + tabla + " SET title = '" + campo1 + "' ," +
+                                    "description = '" + campo2 + "' ,date = '" + dt.ToString("yyyy-MM-dd") + "' ," +
+                                    "image = '" + campo4 + "',url = '" + campo5 + "' WHERE \"iID\" = " + selectedId);
+                    update();
+                    mpeNotification.Hide();
+                    break;
+            }
+            
         }
 
         protected void eraseBtn_Click(object sender, EventArgs e)
@@ -185,9 +333,11 @@ namespace nf_adminSystem
             if (GridView1.SelectedIndex == -1)
             {
                 msgPopUp("Error","Seleccione un elemento.");
+                ModalPopupExtender2.Show();
             }
             else
             {
+               //msgPopUp("Error", GridView1.SelectedIndex.ToString());
                 Label1.Text = "";
                 ModalPopupExtender1.Show();
             }
@@ -207,44 +357,7 @@ namespace nf_adminSystem
                 {
                     //Response.Write("<script>alert('Restros Eliminados - " + query + "');</script>");
                     ModalPopupExtender1.Hide();
-                    switch (tipoTabla)
-                    {
-                        case "notification":
-
-                            cambio(DropDownList3,
-                              "SELECT n.\"iID\",n.title,n.description,n.image,n.date " +
-                              "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
-
-                            break;
-
-                        case "subarea":
-                            cambio(
-                               DropDownList2,
-                               DropDownList3,
-                               "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                                "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
-                                 "SubAreas"
-                               );
-
-                            break;
-
-                        case "area":
-                            cambio(
-                               DropDownList1,
-                               DropDownList2,
-                               "select a.\"iID\",a.name,a.description from " +
-                               "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                               "Areas"
-                               );
-                            DropDownList3.Items.Clear();
-                            DropDownList3.Items.Add("Seleccione Area");
-                            break;
-
-                        case "institution":
-                            clear();
-                            break;
-                    }
-                    
+                    update();
                 }
                 else
                 {
@@ -280,7 +393,7 @@ namespace nf_adminSystem
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selected = GridView1.SelectedIndex;
-
+            
             foreach (GridViewRow row in GridView1.Rows)
             {
                 if (row.RowIndex == GridView1.SelectedIndex)
@@ -295,6 +408,28 @@ namespace nf_adminSystem
                 }
             }
         }
+
+        protected void btnEditarInsCancelar_Click(object sender, EventArgs e)
+        {
+            mpeInstitution.Hide();
+        }
+
+        protected void btnEditarAreaSubCancelar_Click(object sender, EventArgs e)
+        {
+            mpuAreaYSubArea.Hide();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnEditarNotificationCancelar_Click(object sender, EventArgs e)
+        {
+            mpeNotification.Hide();
+        }
+
+        
 
         
 

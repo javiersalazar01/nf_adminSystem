@@ -89,6 +89,7 @@
     <Content Include="assets\plugins\social-buttons\social-buttons.css" />
     <Content Include="assets\plugins\timeline\timeline.css" />
     <Content Include="assets\scripts\siminta.js" />
+    <Content Include="Calendario.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Areas.aspx" />
     <Content Include="Global.asax" />
@@ -97,6 +98,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendario.aspx.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendario.aspx.designer.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

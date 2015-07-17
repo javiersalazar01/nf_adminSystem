@@ -37,7 +37,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="default.aspx">
-                    <img src="assets/img/logo.png" width="120" height="20" alt="" />
+                    <%--<img src="assets/img/logo.png" width="120" height="20" alt="" />--%>
+                    <p style="color: white; font-size: 3em;" >Notie</p>
                 </a>
             </div>
             <!-- end navbar-header -->
@@ -284,18 +285,7 @@
                         </div>
                         <!--end user image section-->
                     </li>
-                    <li class="sidebar-search">
-                        <!-- search section-->
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!--end search section-->
-                    </li>
+                    
                     <li >
                         <a href="default.aspx"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
                     </li>
@@ -306,6 +296,9 @@
                    
                      <li>
                         <a href="Usuarios.aspx"><i class="fa fa-flask fa-fw"></i>Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="Calendario.aspx"><i class="fa fa-flask fa-fw"></i>Calendario</a>
                     </li>
                    
                 </ul>

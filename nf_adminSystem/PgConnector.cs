@@ -21,7 +21,7 @@ namespace nf_adminSystem
         {
             if (util == null)
             {
-                util = new PgConnector("Server=localhost;Port=5432;User Id=nf_admin;Password=csipronf;Database=nf_data;");
+                util = new PgConnector("Server=104.236.147.195;Port=5432;User Id=nf_admin;Password=csipronf;Database=nf_data;");
             }
             return util;
         }
