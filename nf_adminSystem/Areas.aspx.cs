@@ -222,7 +222,7 @@ namespace nf_adminSystem
         {
             string tabla = "";
             DataTable dt;
-            string selectedId =  GridView1.SelectedRow.Cells[0].Text;
+            string selectedId;
 
             if (GridView1.SelectedIndex == -1)
 	        {
@@ -231,6 +231,7 @@ namespace nf_adminSystem
 	        }
             else
 	        {
+                selectedId = GridView1.SelectedRow.Cells[0].Text;
                 tabla = Convert.ToString(ViewState["tipoTabla"]);
                 switch (tabla)
                 {

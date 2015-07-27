@@ -187,8 +187,9 @@
 
                                     <br />
                                     <asp:Label ID="Label10" runat="server" Text="descripcion: "></asp:Label>
-                                    <asp:TextBox ID="desNotifi" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>
+                                    <asp:TextBox ID="desNotifi" TextMode="MultiLine" style="resize:none;" CssClass="centro form-control" runat="server" Rows="7" ></asp:TextBox>
                                     
+
                                     <br />
                                     <asp:Label ID="Label12" runat="server" Text="Imagen: "></asp:Label>
                                     <asp:TextBox ID="imageNoti" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>  
