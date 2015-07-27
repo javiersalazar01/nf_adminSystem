@@ -19,3 +19,9 @@ C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adm
 C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.pdb
 C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\AjaxControlToolkit.dll
 C:\Users\CSI Pro\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.csprojResolveAssemblyReference.cache
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.dll.config
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.dll
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\bin\nf_adminSystem.pdb
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.dll
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.pdb
+C:\Users\csi-proPC\Documents\GitHub\nf_adminSystem\nf_adminSystem\obj\Debug\nf_adminSystem.csprojResolveAssemblyReference.cache

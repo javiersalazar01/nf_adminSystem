@@ -70,6 +70,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\calendar.css" />
     <Content Include="assets\css\main-style.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\font-awesome\css\font-awesome.css" />
@@ -88,6 +89,7 @@
     <Content Include="assets\plugins\pace\pace.js" />
     <Content Include="assets\plugins\social-buttons\social-buttons.css" />
     <Content Include="assets\plugins\timeline\timeline.css" />
+    <Content Include="assets\scripts\calendar.js" />
     <Content Include="assets\scripts\siminta.js" />
     <Content Include="Calendario.aspx" />
     <Content Include="Default.aspx" />

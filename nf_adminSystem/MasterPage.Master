@@ -17,7 +17,7 @@
     <link href="assets/plugins/social-buttons/social-buttons.css" rel="stylesheet" />
      <!-- Timeline CSS-->
     <link href="assets/plugins/timeline/timeline.css" rel="stylesheet" />
-
+    
 
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -325,6 +325,6 @@
     <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <%--<script src="assets/plugins/pace/pace.js"></script>--%>
     <script src="assets/scripts/siminta.js"></script>  
-   
+     <script src="assets/scripts/calendar.js"></script>
 </body>
 </html>

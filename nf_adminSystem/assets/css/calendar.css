@@ -1,0 +1,261 @@
+﻿
+
+
+    /*CSS Calendar*/
+    body {
+    font-family: 'Arial', sans-serif;
+    background-color: #74d0cd;
+    height: 100vh;
+}
+
+.wrapper {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+button::-moz-focus-inner { 
+  border: 0;
+  padding: 0;
+}
+
+#calendari {
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    height: 310px;
+    width: 350px;
+    font-size: 14px;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.4);
+}
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 350px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    transition: all 0.3s ease;
+}
+table.actiu {
+    transform: translateX(0px)top;
+}
+table.inactiu {
+    transition: all 0.3s 0.01s ease;
+}
+table.amagat-esquerra {
+    transform: translateX(-299px);
+}
+table.amagat-dreta {
+    transform: translateX(300px);
+}
+td,th {
+    text-align: center;
+    background-color: #fff;
+}
+th {
+    padding: 10px;
+}
+tr:first-child th {
+    font-size: 20px;
+    font-weight: bold;
+    border-left: none;
+    border-top: none;
+}
+td:last-child, th:last-child {
+  border-right: none;
+}
+
+th {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    background-color: #08ae9e;
+    color: #fff;
+    text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
+    font-weight: normal;
+}
+th .any {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    text-shadow: none;
+    color: rgba(0,0,0,0.4);
+}
+tr:nth-child(2) th {
+    padding: 5px;
+}
+td {
+    padding: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+td a>span {
+    color: #555;
+    padding: 6px;
+    display: block;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+td span .borde{
+    width: 26px;
+    height: 26px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 7px;
+    padding-left: 7px;
+    border: 1px solid transparent;
+}
+
+
+
+td:nth-child(even) a>span {
+    background-color: rgba(0,0,0,0.02);
+}
+    td.avui a >span {
+        font-weight: bold;
+        background-color: #74d0cd;
+        color: #fff;
+        border: 2px solid rgba(0,0,0,0.1);
+    }
+    td.fora a> span {
+        opacity: 0.2;   
+    }
+
+    .boto-next, .boto-prev {
+        background: rgba(0,0,0,0.1);
+        color: #fff;
+        font-family: inherit;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        text-shadow: inherit;
+        padding: 2px 10px 5px 10px;
+        line-height: 1px;
+        height: 30px;
+        width: 30px;
+        vertical-align: middle;
+        border-radius: 100%;
+        position: absolute;
+        top: 15px;
+    }
+    .boto-next { right: 10px; padding-left: 13px; }
+    .boto-prev { left: 10px; padding-right: 13px;}
+    .boto-next:hover,
+    .boto-prev:hover {
+        background: rgba(0,0,0,0.2);
+    }
+    button:hover { cursor: pointer; }
+    button:focus { outline: none; }
+
+    a#show{
+        float: right;
+        margin-right: 3%;
+    }
+    div.Slider{
+        margin-top: 10%;       
+        width: 100%;
+    }
+    .box{
+        width: 90%;
+    }
+
+    .turn .borde{
+        color: #1089E5;
+        border-color: #1089E5;
+        border-radius:30px; 
+        -moz-border-radius:30px;
+        -webkit-border-radius:30px;
+    }
+    .inscr .borde{
+        color: #1089E5!important;
+        border-color: #1089E5;
+}
+td a:first-child > span.vaca {
+    background-color: #A0FFF5;
+    
+}
+
+.limit{
+    color: #FF0303;
+    padding: 8px;
+}
+
+.inic{
+    color: #0051FF;
+    font-size: 20px;
+    padding: 6px;
+}
+
+.noLab{
+    color: red;
+}
+
+.evaOrd .borde{
+    color: #026D17;    
+    border: 1px solid transparent;
+    border-color: #026D17;
+}
+
+.evaExt .borde{
+    color: #EC750C;    
+    border: 1px solid transparent;
+    border-color: #EC750C;
+}
+
+a .entrega{
+   color: blue;
+   font-size: 20px;
+}
+
+.box .vaca{
+    background-color: #A0FFF5;
+    padding: 7px;
+}
+
+.box .turn {
+    color: #1089E5;
+    padding: 5px;
+    border:1px solid;
+    border-color: #1089E5;
+    border-radius:20px; 
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+}
+
+.box .inscr {
+    color: #1089E5;
+    padding: 4px;
+    
+    border: 1px solid transparent;
+    color: #1089E5!important;
+    border-color: #1089E5;
+}
+
+.box .evaOrd {
+    color: #026D17;    
+    border: 1px solid transparent;
+    border-color: #026D17;
+    padding: 4px;
+}
+
+.box .evaExt {
+    color: #EC750C;    
+    border: 1px solid transparent;
+    border-color: #EC750C;
+    padding: 4px;
+}
+
+.box .entrega{
+   color: blue;
+   font-size: 20px;
+}
+
+.box .entrega {
+    padding: 6px;
+}
+
+     /*end Calendar*/
