@@ -10,7 +10,7 @@
 namespace nf_adminSystem {
     
     
-    public partial class Inicio {
+    public partial class Usuarios {
         
         /// <summary>
         /// HiddenField2 control.

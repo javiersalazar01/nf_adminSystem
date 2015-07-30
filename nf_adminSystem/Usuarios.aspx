@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Areas.aspx.cs" Inherits="nf_adminSystem.Inicio" EnableEventValidation="False"%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Usuarios.aspx.cs" Inherits="nf_adminSystem.Usuarios" EnableEventValidation="False"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -157,10 +157,12 @@
                                     <asp:Label ID="Label7" runat="server" Text="descripcion: "></asp:Label>
                                     <asp:TextBox ID="desAreaYsub" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
 
+                                    
                                 </div>
                                 <div class="footer" style="text-align: right;" >
                                     <asp:Button ID="submitEditarAreaYSubArea" runat="server" Text="Editar" CssClass="yes" OnClick="submitEditarInstitution_Click" />
                                     <asp:Button ID="btnEditarAreaSubCancelar" runat="server" Text="Cancelar" CssClass="no" OnClick="btnEditarAreaSubCancelar_Click"/>
+
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -186,6 +188,7 @@
                                     <asp:Label ID="Label10" runat="server" Text="descripcion: "></asp:Label>
                                     <asp:TextBox ID="desNotifi" TextMode="MultiLine" style="resize:none;" CssClass="centro form-control" runat="server" Rows="7" ></asp:TextBox>
                                     
+
                                     <br />
                                     <asp:Label ID="Label12" runat="server" Text="Imagen: "></asp:Label>
                                     <asp:TextBox ID="imageNoti" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>  

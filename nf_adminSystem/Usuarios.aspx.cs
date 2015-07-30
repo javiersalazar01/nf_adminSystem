@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace nf_adminSystem
 {
-    public partial class Inicio : System.Web.UI.Page
+    public partial class Usuarios : System.Web.UI.Page
     {
         DataTable ins;
         PgConnector pg = PgConnector.getInstance();
@@ -21,16 +21,19 @@ namespace nf_adminSystem
             if (!IsPostBack)
             {
                 clear();
+
             }
         }
 
         public void clear()
         {
             GridView1.SelectedIndex = -1;
-            ins = pg.consultar("SELECT * FROM institution");
-            DataTable insClon = ins.Copy();
+
+            ins = pg.consultar("SELECT * FROM usernf WHERE userlevel = 1");
             GridView1.DataSource = ins;
             GridView1.DataBind();
+
+            ins = pg.consultar("SELECT * FROM institution");
             
             ViewState["tipoTabla"] = "institution";
 
@@ -384,7 +387,6 @@ namespace nf_adminSystem
                                 pg.modificar("INSERT INTO " + tabla + " (name, description, image) VALUES ( '" + campo1 + "', '" + campo2 + "', '" + campo3 + "');");
                                 update();
                                 mpeInstitution.Hide();
-                            
                             
                             break;
 
