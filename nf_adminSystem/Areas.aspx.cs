@@ -166,8 +166,8 @@ namespace nf_adminSystem
                 cambio(
                    DropDownList2,
                    DropDownList3,
-                   "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                    "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                   "SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                    "where a.\"iID\" = s.area_id AND a.\"iID\" = ",
                      "SubAreas"
                    );
                 ViewState["tipoTabla"] = "subarea";
@@ -202,8 +202,8 @@ namespace nf_adminSystem
                 cambio(
                    DropDownList2,
                    DropDownList3,
-                   "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                    "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                   "SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                    "where  a.\"iID\" = s.area_id AND a.\"iID\" = ",
                      "SubAreas"
                    );
                 ViewState["tipoTabla"] = "subarea";

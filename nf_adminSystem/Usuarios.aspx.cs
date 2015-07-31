@@ -29,13 +29,13 @@ namespace nf_adminSystem
         {
             GridView1.SelectedIndex = -1;
 
-            ins = pg.consultar("SELECT * FROM usernf WHERE userlevel = 1");
+            ins = pg.consultar("SELECT \"iID\",name,password,mail FROM usernf WHERE userlevel = 1");
             GridView1.DataSource = ins;
             GridView1.DataBind();
 
             ins = pg.consultar("SELECT * FROM institution");
             
-            ViewState["tipoTabla"] = "institution";
+            ViewState["tipoTabla"] = "";
 
             DropDownList1.DataSource = ins;
             DropDownList1.DataTextField = "name";
@@ -66,17 +66,17 @@ namespace nf_adminSystem
         }
 
 
-        public void cambio(DropDownList dwlSelect, DropDownList dwlFill, string query,string msg)
+        public void cambio(DropDownList dwlSelect, DropDownList dwlFill, string query,string msg,string queryGrid)
 
         {
             GridView1.SelectedIndex = -1;
             string id = dwlSelect.SelectedValue;
 
-            //Response.Write("<script>alert('"+query+"');</script>");
-            DataTable dt = pg.consultar(query + id);
+            DataTable dt = pg.consultar(queryGrid + id);
             GridView1.DataSource = dt;
             GridView1.DataBind();
 
+            dt = pg.consultar(query + id);
             dwlFill.DataSource = dt;
             dwlFill.DataTextField = "name";
             dwlFill.DataValueField = "iID";
@@ -86,39 +86,46 @@ namespace nf_adminSystem
             l.Text = "--Todas Las " + msg + "--";
             l.Value = "0";
             dwlFill.Items.Insert(0, l);
+        }
 
+        public void cambioSinReferencia(DropDownList dwlSelect, DropDownList dwlFill, string query, string msg, string queryGrid)
+        {
+            GridView1.SelectedIndex = -1;
+            string id = dwlSelect.SelectedValue;
+
+            DataTable dt = pg.consultar(queryGrid);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            dt = pg.consultar(query + id);
+            dwlFill.DataSource = dt;
+            dwlFill.DataTextField = "name";
+            dwlFill.DataValueField = "iID";
+            dwlFill.DataBind();
+
+            ListItem l = new ListItem();
+            l.Text = "--Todas Las " + msg + "--";
+            l.Value = "0";
+            dwlFill.Items.Insert(0, l);
         }
 
         public void update() {
             string tipoTabla = ViewState["tipoTabla"].ToString();
             switch (tipoTabla)
             {
-                case "notification":
-
-                    cambio(DropDownList3,
-                      "SELECT n.\"iID\",n.title,n.description,n.image,n.date,n.url " +
-                      "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
-
-                    break;
-
                 case "subarea":
-                    cambio(
-                       DropDownList2,
-                       DropDownList3,
-                       "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                        "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
-                         "SubAreas"
-                       );
-
+                    cambio(DropDownList3,
+                       "select u.\"iID\",u.name,u.password,u.mail from usernf u, user_subarea us where u.\"iID\" = us.usernf_id AND userlevel = 3 AND us.subarea_id = ");
                     break;
 
                 case "area":
                     cambio(
-                       DropDownList1,
                        DropDownList2,
-                       "select a.\"iID\",a.name,a.description from " +
-                       "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                       "Areas"
+                       DropDownList3,
+                       "SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                        "where a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                         "SubAreas",
+                         "SELECT  u.\"iID\",u.name,u.password,u.mail FROM usernf u, user_area ua WHERE u.\"iID\" = ua.usernf_id  AND u.userlevel = 2 AND ua.area_id = "
                        );
                     DropDownList3.Items.Clear();
                     DropDownList3.Items.Add("Seleccione Area");
@@ -149,9 +156,9 @@ namespace nf_adminSystem
                    DropDownList2,
                    "select a.\"iID\",a.name,a.description from " +
                    "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                   "Areas"
-                   );
-                ViewState["tipoTabla"] = "area";
+                   "Areas",
+                   "select u.\"iID\",u.name,u.password,u.mail from usernf u where userlevel = 1 AND institution_id = ");
+                ViewState["tipoTabla"] = "institution";
                 DropDownList3.Items.Clear();
                 DropDownList3.Items.Add("Seleccione Area");
             }
@@ -169,25 +176,26 @@ namespace nf_adminSystem
                 cambio(
                    DropDownList2,
                    DropDownList3,
-                   "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                    "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
-                     "SubAreas"
+                   "SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                    "where a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                     "SubAreas",
+                     "SELECT  u.\"iID\",u.name,u.password,u.mail FROM usernf u, user_area ua WHERE u.\"iID\" = ua.usernf_id  AND u.userlevel = 2 AND ua.area_id = "
                    );
-                ViewState["tipoTabla"] = "subarea";
+                ViewState["tipoTabla"] = "area";
             }
             else
             {
-                cambio(
+                cambioSinReferencia(
                    DropDownList1,
                    DropDownList2,
                    "select a.\"iID\",a.name,a.description from " +
                    "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                   "Areas"
+                   "Areas",
+                   "SELECT u.\"iID\",u.name,u.password,u.mail FROM usernf u WHERE u.userlevel = 2 AND u.institution_id = " + DropDownList1.SelectedValue
                    );
-                ViewState["tipoTabla"] = "area";
+                ViewState["tipoTabla"] = "";
 
             }
-
         }
 
         protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
@@ -195,64 +203,50 @@ namespace nf_adminSystem
             if (DropDownList3.SelectedValue != "0")
             {
                 cambio(DropDownList3,
-                   "SELECT n.\"iID\",n.title,n.description,n.image,n.date,n.url " +
-                   "FROM subarea s,notification n where s.\"iID\" = n.subarea_id AND s.\"iID\" = ");
-                ViewState["tipoTabla"] = "notification";
+                   "select u.\"iID\",u.name,u.password,u.mail from usernf u, user_subarea us where u.\"iID\" = us.usernf_id AND userlevel = 3 AND us.subarea_id = ");
+                ViewState["tipoTabla"] = "subarea";
 
             }
             else
             {
-                cambio(
+                cambioSinReferencia(
                    DropDownList2,
                    DropDownList3,
-                   "SELECT s.\"iID\",s.name,s.description FROM institution i, area a, subarea s " +
-                    "where a.institution_id = i.\"iID\" AND a.\"iID\" = s.area_id AND a.\"iID\" = ",
-                     "SubAreas"
+                   "SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                    "where  a.\"iID\" = s.area_id AND a.\"iID\" = ",
+                     "SubAreas",
+                     "select  u.\"iID\",u.name,u.password,u.mail from usernf u, user_subarea us where u.\"iID\" = us.usernf_id AND userlevel = 3 AND userarea_id IN (select ua.\"iID\" from user_area ua where ua.area_id = " + DropDownList2.SelectedValue + ")"
                    );
-                ViewState["tipoTabla"] = "subarea";
+                ViewState["tipoTabla"] = "";
 
             }
             
         }
 
+        public void nuevo() {
+            submitEditarInstitution.Text = "Crear";
+            nameUsu.Text = "";
+            mailUsu.Text = "";
+            passwordUsu.Text = "";
+            mpeNuevoUsuario.Show();
+        }
+
 
         protected void newBtn_Click(object sender, EventArgs e)
         {
-           
             string  tabla = Convert.ToString(ViewState["tipoTabla"]);
             switch (tabla)
             {
                 case "institution":
-                    submitEditarInstitution.Text = "Crear";
-                    nameIns.Text = "";
-                    descriptionIns.Text = "";
-                    imageIns.Text = "";
-                    mpeInstitution.Show();
+                    nuevo();
                     break;
 
                 case "area":
-                    submitEditarAreaYSubArea.Text = "Crear";
-                    lblHeadrEditarCrear.Text = "Area";
-                    nameAreaYsub.Text = "";
-                    desAreaYsub.Text = "";
-                    mpuAreaYSubArea.Show();
+                    nuevo();
                     break;
 
                 case "subarea":
-                    submitEditarAreaYSubArea.Text = "Crear";
-                    lblHeadrEditarCrear.Text = "SubArea";
-                    nameAreaYsub.Text = "";
-                    desAreaYsub.Text = "";
-                    mpuAreaYSubArea.Show();
-                    break;
-
-                case "notification":
-                    submitEditarNotification.Text = "Crear";
-                    titleNoti.Text = "";
-                    desNotifi.Text = "";
-                    imageNoti.Text = "";
-                    urlNoti.Text = "";
-                    mpeNotification.Show();
+                    nuevo();
                     break;
             }
             ViewState["editarCrear"] = "crear";
@@ -277,12 +271,12 @@ namespace nf_adminSystem
                 switch (tabla)
                 {
                     case "institution":
-                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
-                        nameIns.Text = Convert.ToString(dt.Rows[0][1]);
-                        descriptionIns.Text = Convert.ToString(dt.Rows[0][2]);
-                        imageIns.Text = Convert.ToString(dt.Rows[0][3]);
-                        submitEditarInstitution.Text = "Editar";
-                        mpeInstitution.Show();
+                        //dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
+                        //nameIns.Text = Convert.ToString(dt.Rows[0][1]);
+                        //descriptionIns.Text = Convert.ToString(dt.Rows[0][2]);
+                        //imageIns.Text = Convert.ToString(dt.Rows[0][3]);
+                        //submitEditarInstitution.Text = "Editar";
+                        //mpeInstitution.Show();
                         break;
 
                     case "area":
@@ -302,16 +296,6 @@ namespace nf_adminSystem
                         submitEditarAreaYSubArea.Text = "Editar";
                         mpuAreaYSubArea.Show();
                         break;
-
-                    case "notification":
-                        dt = pg.consultar("SELECT * FROM " + tabla + " WHERE \"iID\" = " + selectedId);
-                        titleNoti.Text = Convert.ToString(dt.Rows[0][1]);
-                        desNotifi.Text = Convert.ToString(dt.Rows[0][2]);
-                        imageNoti.Text = Convert.ToString(dt.Rows[0][5]);
-                        urlNoti.Text = Convert.ToString(dt.Rows[0][6]);
-                        submitEditarNotification.Text = "Editar";
-                        mpeNotification.Show();
-                        break;
                 }
 	        }
             
@@ -328,6 +312,7 @@ namespace nf_adminSystem
             string campo3;
             string campo4;
             string campo5;
+            string querys;
 
             switch (editarOCrear)
             {
@@ -337,12 +322,12 @@ namespace nf_adminSystem
                         switch (tabla)
                         {
                             case "institution":
-                                campo1 = nameIns.Text;
-                                campo2 = descriptionIns.Text;
-                                campo3 = imageIns.Text;
-                                pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "',image = '" + campo3 + "' WHERE \"iID\" = " + selectedId);
-                                update();
-                                mpeInstitution.Hide();
+                                //campo1 = nameIns.Text;
+                                //campo2 = descriptionIns.Text;
+                                //campo3 = imageIns.Text;
+                                //pg.modificar("UPDATE " + tabla + " SET name = '" + campo1 + "' ,description = '" + campo2 + "',image = '" + campo3 + "' WHERE \"iID\" = " + selectedId);
+                                //update();
+                                //mpeInstitution.Hide();
                                 break;
 
                             case "area":
@@ -380,22 +365,28 @@ namespace nf_adminSystem
                     switch (tabla)
                     {
                         case "institution":
-                            
-                                campo1 = nameIns.Text;
-                                campo2 = descriptionIns.Text;
-                                campo3 = imageIns.Text;
-                                pg.modificar("INSERT INTO " + tabla + " (name, description, image) VALUES ( '" + campo1 + "', '" + campo2 + "', '" + campo3 + "');");
+                                campo1 = nameUsu.Text;
+                                campo2 = mailUsu.Text;
+                                campo3 = passwordUsu.Text;
+                                querys = "INSERT INTO usernf(name, password, mail, userlevel, institution_id, key, verified) VALUES ( '" + campo1 + "', '" + campo2 + "', '" + campo3 + "', 1, " + DropDownList1.SelectedValue + ", '', false);";
+                                pg.modificar(querys);
+                                Label2.Text = querys;
                                 update();
-                                mpeInstitution.Hide();
-                            
+                                DataTable ins = pg.consultar("SELECT \"iID\",name,password,mail FROM usernf WHERE userlevel = 1");
+                                GridView1.DataSource = ins;
+                                GridView1.DataBind();
+                                mpeNuevoUsuario.Hide();
                             break;
 
                         case "area":
-                            campo1 = nameAreaYsub.Text;
-                            campo2 = desAreaYsub.Text;
-                            pg.modificar("INSERT INTO " + tabla + " (name, description, institution_id) VALUES ( '" + campo1 + "', '" + campo2 + "', '" + DropDownList1.SelectedValue + "');");
-                            update();
-                            mpuAreaYSubArea.Hide();
+                                campo1 = nameUsu.Text;
+                                campo2 = mailUsu.Text;
+                                campo3 = passwordUsu.Text;
+                                querys = "INSERT INTO usernf(name, password, mail, userlevel, institution_id, key, verified) VALUES ( '" + campo1 + "', '" + campo2 + "', '" + campo3 + "', 2, " + DropDownList1.SelectedValue + ", '', false);";
+                                pg.modificar(querys);
+                                pg.modificar("INSERT INTO user_area (usernf_id, area_id) VALUES (?, ?, ?);");
+                                update();
+                                mpeNuevoUsuario.Hide();
                             break;
 
                         case "subarea":
@@ -406,26 +397,11 @@ namespace nf_adminSystem
                             mpuAreaYSubArea.Hide();
                             break;
 
-                        case "notification":
-                            campo1 = titleNoti.Text;
-                            campo2 = desNotifi.Text;
-                            DateTime dt = DateTime.Now;
-                            campo4 = imageNoti.Text;
-                            campo5 = urlNoti.Text;
-                            pg.modificar("INSERT INTO " + tabla + " (title, description, date, subarea_id, image, url) VALUES "+
-                                        "( '" + campo1 + "', '" + campo2 + "', '" + dt.ToString("yyyy-MM-dd") + "', '" + DropDownList3.SelectedValue + "', '" + campo4 + "', '" + campo5 + "');");
-                            update();
-                            mpeNotification.Hide();
-                            break;
                     }
 
                 break;
             }
 
-
-            
-           
-            
         }
 
         protected void eraseBtn_Click(object sender, EventArgs e)
@@ -511,7 +487,7 @@ namespace nf_adminSystem
 
         protected void btnEditarInsCancelar_Click(object sender, EventArgs e)
         {
-            mpeInstitution.Hide();
+            mpeNuevoUsuario.Hide();
         }
 
         protected void btnEditarAreaSubCancelar_Click(object sender, EventArgs e)

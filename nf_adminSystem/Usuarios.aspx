@@ -108,7 +108,7 @@
                      CancelControlID="btnNo" DropShadow="true"  TargetControlID="HiddenField1" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
 
 
-                 <%-- Panel Editar/crear institution  --%>
+                 <%-- Panel Nuevo usuario  --%>
           
                      <asp:Panel ID="Panel3" runat="server" CssClass="modalPopup" style="display:none; width: 170%;"> 
                          <asp:UpdatePanel ID="UpdatePanel2" runat="server" >
@@ -117,16 +117,16 @@
                                     Institucion
                                 </div>
                                 <div class="body">
-                                    <asp:Label ID="Label3" runat="server" Text="nombre"></asp:Label>
-                                    <asp:TextBox ID="nameIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>
+                                    <asp:Label ID="Label3" runat="server" Text="nombre:"></asp:Label>
+                                    <asp:TextBox ID="nameUsu" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox>
                                     <br />
 
-                                    <asp:Label ID="Label4" runat="server" Text="descripcion: "></asp:Label>
-                                    <asp:TextBox ID="descriptionIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                                    <asp:Label ID="Label4" runat="server" Text="Mail: "></asp:Label>
+                                    <asp:TextBox ID="mailUsu" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
 
                                     <br />
-                                    <asp:Label ID="Label5" runat="server" Text="imagen"></asp:Label>
-                                    <asp:TextBox ID="imageIns" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
+                                    <asp:Label ID="Label5" runat="server" Text="Contraseña:"></asp:Label>
+                                    <asp:TextBox ID="passwordUsu" TextMode="SingleLine" CssClass="centro form-control" runat="server" ></asp:TextBox> 
                                     
                                 </div>
                                 <div class="footer" style="text-align: right;" >
@@ -137,7 +137,7 @@
                         </asp:UpdatePanel>
                   </asp:Panel>
             
-                 <cc1:ModalPopupExtender ID="mpeInstitution" runat="server"  PopupControlID="Panel3"
+                 <cc1:ModalPopupExtender ID="mpeNuevoUsuario" runat="server"  PopupControlID="Panel3"
                      CancelControlID="btnEditarInsCancelar" DropShadow="true" TargetControlID="HiddenField3" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
 
 
