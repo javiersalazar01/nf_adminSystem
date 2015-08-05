@@ -47,6 +47,17 @@ namespace nf_adminSystem
             DropDownList2.Items.Add("Seleccione Institucion");
             DropDownList3.Items.Clear();
             DropDownList3.Items.Add("Seleccione Area");
+
+            if (GridView1.Rows.Count == 0)
+            {
+                Label2.Text = "No Existen Registros.";
+                Label2.Font.Size = FontUnit.Larger;
+            }
+            else
+            {
+                Label2.Text = "";
+                Label2.Font.Size = FontUnit.Medium;
+            }
         }
 
 
@@ -60,6 +71,17 @@ namespace nf_adminSystem
             DataTable dt = pg.consultar(query + id);
             GridView1.DataSource = dt;
             GridView1.DataBind();
+
+            if (GridView1.Rows.Count == 0)
+            {
+                Label2.Text = "No Existen Registros.";
+                Label2.Font.Size = FontUnit.Larger;
+            }
+            else
+            {
+                Label2.Text = "";
+                Label2.Font.Size = FontUnit.Medium;
+            }
         }
 
 
@@ -83,6 +105,17 @@ namespace nf_adminSystem
             l.Text = "--Todas Las " + msg + "--";
             l.Value = "0";
             dwlFill.Items.Insert(0, l);
+
+            if (GridView1.Rows.Count == 0)
+            {
+                Label2.Text = "No Existen Registros.";
+                Label2.Font.Size = FontUnit.Larger;
+            }
+            else
+            {
+                Label2.Text = "";
+                Label2.Font.Size = FontUnit.Medium;
+            }
 
         }
 

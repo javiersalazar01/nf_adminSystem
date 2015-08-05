@@ -167,8 +167,50 @@ namespace nf_adminSystem
          * 
         */
 
+        public bool nuevoUsuarioArea(string nombre, string pass, string mail, int userlevel, int institution_id, string llave, bool verified, int area_id)
+        {
+            con.Open();
+            comand = con.CreateCommand();
+            comand.CommandText = "nuevo_usuario_area";
+            comand.CommandType = CommandType.StoredProcedure;
+            comand.Parameters.AddWithValue("nombre", nombre);
+            comand.Parameters.AddWithValue("pass", pass);
+            comand.Parameters.AddWithValue("mail", mail);
+            comand.Parameters.AddWithValue("userlevel", userlevel);
+            comand.Parameters.AddWithValue("institution_id", institution_id);
+            comand.Parameters.AddWithValue("key", llave);
+            comand.Parameters.AddWithValue("verified", verified);
+            comand.Parameters.AddWithValue("area_id", area_id);
+            bool res = Convert.ToBoolean(comand.ExecuteScalar());
+            
+            con.Close();
+            return res;
+        }
+
+        public bool nuevoUsuarioSubArea(string nombre, string pass, string mail, int userlevel, int institution_id, string llave, bool verified, int subarea_id, int area_id)
+        {
+            con.Open();
+            comand = con.CreateCommand();
+            comand.CommandText = "nuevo_usuario_subarea";
+            comand.CommandType = CommandType.StoredProcedure;
+            comand.Parameters.AddWithValue("nombre", nombre);
+            comand.Parameters.AddWithValue("pass", pass);
+            comand.Parameters.AddWithValue("mail", mail);
+            comand.Parameters.AddWithValue("userlevel", userlevel);
+            comand.Parameters.AddWithValue("institution_id", institution_id);
+            comand.Parameters.AddWithValue("key", llave);
+            comand.Parameters.AddWithValue("verified", verified);
+            comand.Parameters.AddWithValue("subarea_id", subarea_id);
+            comand.Parameters.AddWithValue("area_id", area_id);
+            bool res = Convert.ToBoolean(comand.ExecuteScalar());
+            
+            con.Close();
+            return res;
+        }
+
         public DataSet ejecutarProcedimiento(string procName, Hashtable parameters)
         {
+            con.Open();
             DataSet ds = new DataSet();
             try
             {
@@ -182,6 +224,7 @@ namespace nf_adminSystem
                     comand.Parameters.AddWithValue(Convert.ToString(pair.Key), pair.Value);
                 }
 
+                comand.ExecuteNonQuery();
                 adapter = new NpgsqlDataAdapter(comand);
                 adapter.Fill(ds);
 
@@ -191,7 +234,7 @@ namespace nf_adminSystem
 
                 //MessageBox.Show("Un error a ocurrido: " + e.Message + e.StackTrace);
             }
-
+            con.Close();
             return ds;
         }
 
