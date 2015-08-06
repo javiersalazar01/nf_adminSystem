@@ -23,9 +23,9 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-   
      <!--  wrapper -->
     <div id="wrapper">
+        <form id="form1" runat="server">
         <!-- navbar top -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
             <!-- navbar-header -->
@@ -249,8 +249,12 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li>
+                            <%--<a runat="server" onclick="LinkButton1_Click" ><i class="fa fa-sign-out fa-fw"></i>Logout</a>--%>
+                            
+                                <asp:LinkButton ID="LinkButton1" OnClick="LinkButton1_Click" runat="server" ><i class="fa fa-sign-out fa-fw"></i>Logout</asp:LinkButton>
                         </li>
+                        
                     </ul>
                     <!-- end dropdown-user -->
                 </li>
@@ -307,7 +311,7 @@
             <!-- end sidebar-collapse -->
         </nav>
         <!-- end navbar side -->
-        <form id="form1" runat="server">
+        
             <div>
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         

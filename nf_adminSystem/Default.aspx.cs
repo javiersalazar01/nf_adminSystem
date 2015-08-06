@@ -11,7 +11,7 @@ namespace nf_adminSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Label1.Text = Convert.ToString(Session["iID"]) + "," + Convert.ToString(Session["name"]) + "," + Convert.ToString(Session["password"]) + "," +  Convert.ToString(Session["mail"]) + "," + Convert.ToString(Session["userlevel"]);
         }
     }
 }

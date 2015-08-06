@@ -9,6 +9,7 @@
                 <!-- Page Header -->
                 <div class="col-lg-12">
                     <h1 class="page-header">LOGO CHILO</h1>
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                 </div>
                 <!--End Page Header -->
             </div>

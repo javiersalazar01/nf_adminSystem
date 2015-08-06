@@ -21,7 +21,47 @@ namespace nf_adminSystem
             if (!IsPostBack)
             {
                 clear();
+                int userlevel = Convert.ToInt32(Session["userlevel"]);
+                string institution_id = Convert.ToString(Session["institution_id"]);
+                for (int i = 1; i <= userlevel; i++)
+                {
+                    switch (userlevel)
+                    {
+                        case 1:
+
+                            DropDownList1.SelectedValue = institution_id;
+                            cambio(
+                               DropDownList1,
+                               DropDownList2,
+                               "select a.\"iID\",a.name,a.description from " +
+                               "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
+                               "Areas"
+                               );
+                            ViewState["tipoTabla"] = "area";
+                            DropDownList3.Items.Clear();
+                            DropDownList3.Items.Add("Seleccione Area");
+                            DropDownList1.Enabled = false;
+                            break;
+
+                        case 2:
+                            DropDownList1.SelectedValue = institution_id;
+                            DropDownList1.Enabled = false;
+                            string usernfid = Convert.ToString(Session["iID"]);
+                            DataTable res = pg.consultar("SELECT area_id FROM user_area WHERE usernf_id = " + usernfid);
+                            Label2.Text = Convert.ToString(res.Rows[0][0]);
+                            DropDownList2.SelectedValue = "" + 6;
+                            DropDownList2.Enabled = false;
+
+                            break;
+
+                        case 3:
+                            break;
+                    }
+                }
+               
+
             }
+           
         }
 
         public void clear()
@@ -204,6 +244,7 @@ namespace nf_adminSystem
                      "SubAreas"
                    );
                 ViewState["tipoTabla"] = "subarea";
+                Label2.Text = DropDownList2.SelectedValue;
             }
             else
             {
