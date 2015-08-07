@@ -23,20 +23,25 @@ namespace nf_adminSystem
                 clear();
                 int userlevel = Convert.ToInt32(Session["userlevel"]);
                 string institution_id = Convert.ToString(Session["institution_id"]);
+                string areaid;
+                string usernfid;
+                DataTable res;
+
                 for (int i = 1; i <= userlevel; i++)
                 {
-                    switch (userlevel)
+                    if (userlevel == 3 && i == 2)
+                    {
+                        i++;
+                    }
+
+                    switch (i)
                     {
                         case 1:
 
                             DropDownList1.SelectedValue = institution_id;
-                            cambio(
-                               DropDownList1,
-                               DropDownList2,
-                               "select a.\"iID\",a.name,a.description from " +
-                               "institution i, area a WHERE a.institution_id = i.\"iID\" AND i.\"iID\" = ",
-                               "Areas"
-                               );
+
+                            DropDownList1_SelectedIndexChanged(null, EventArgs.Empty);
+
                             ViewState["tipoTabla"] = "area";
                             DropDownList3.Items.Clear();
                             DropDownList3.Items.Add("Seleccione Area");
@@ -44,17 +49,37 @@ namespace nf_adminSystem
                             break;
 
                         case 2:
-                            DropDownList1.SelectedValue = institution_id;
-                            DropDownList1.Enabled = false;
-                            string usernfid = Convert.ToString(Session["iID"]);
-                            DataTable res = pg.consultar("SELECT area_id FROM user_area WHERE usernf_id = " + usernfid);
-                            Label2.Text = Convert.ToString(res.Rows[0][0]);
-                            DropDownList2.SelectedValue = "" + 6;
+                            usernfid = Convert.ToString(Session["iID"]);
+                            res = pg.consultar("SELECT area_id FROM user_area WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList2.SelectedValue = areaid;
                             DropDownList2.Enabled = false;
+
+                            DropDownList2_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            ViewState["tipoTabla"] = "subarea";
+                            Label2.Text = DropDownList2.SelectedValue;
 
                             break;
 
                         case 3:
+                            usernfid = Convert.ToString(Session["iID"]);
+                            res = pg.consultar("SELECT area_id FROM user_subarea WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList2.SelectedValue = areaid;
+                            DropDownList2.Enabled = false;
+
+                            DropDownList2_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            res = pg.consultar("SELECT subarea_id FROM user_subarea WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList3.SelectedValue = areaid;
+                            DropDownList3.Enabled = false;
+
+                            DropDownList3_SelectedIndexChanged(null, EventArgs.Empty);
+
+
+
                             break;
                     }
                 }
@@ -68,7 +93,6 @@ namespace nf_adminSystem
         {
             GridView1.SelectedIndex = -1;
             ins = pg.consultar("SELECT * FROM institution");
-            DataTable insClon = ins.Copy();
             GridView1.DataSource = ins;
             GridView1.DataBind();
             

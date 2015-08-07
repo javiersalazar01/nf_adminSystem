@@ -16,12 +16,101 @@ namespace nf_adminSystem
         PgConnector pg = PgConnector.getInstance();
         public string bodyText = "";
         public string headerText = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             HiddenField1.Value = "123";
             if (!IsPostBack)
             {
                 clear();
+                int userlevel = Convert.ToInt32(Session["userlevel"]);
+                string institution_id = Convert.ToString(Session["institution_id"]);
+                string areaid;
+                string usernfid;
+                DataTable res;
+
+                for (int i = 1; i <= userlevel; i++)
+                {
+                    if (userlevel == 3 && i == 2)
+                    {
+                        i++;
+                    }
+
+                    switch (i)
+                    {
+                        case 1:
+
+                            DropDownList1.SelectedValue = institution_id;
+                            DropDownList1.Enabled = false;
+
+                            DropDownList1_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            GridView1.DataSource = null;
+                            GridView1.DataBind();
+
+                            if (DropDownList1.Items.Count > 0)
+                            {
+                                DropDownList2.SelectedIndex = 1;
+                                DropDownList2_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            }
+
+
+                            break;
+
+                        case 2:
+
+                            usernfid = Convert.ToString(Session["iID"]);
+                            res = pg.consultar("SELECT area_id FROM user_area WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList2.SelectedValue = areaid;
+                            DropDownList2.Enabled = false;
+
+                            DropDownList2_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            ViewState["tipoTabla"] = "area";
+                            Label2.Text = DropDownList2.SelectedValue;
+
+                            GridView1.DataSource = null;
+                            GridView1.DataBind();
+
+                            if (DropDownList2.Items.Count > 0)
+                            {
+                                DropDownList3.SelectedIndex = 1;
+                                DropDownList3_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            }
+
+                            break;
+
+                        case 3:
+
+                            usernfid = Convert.ToString(Session["iID"]);
+                            res = pg.consultar("SELECT area_id FROM user_subarea WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList2.SelectedValue = areaid;
+                            DropDownList2.Enabled = false;
+
+                            DropDownList2_SelectedIndexChanged(null, EventArgs.Empty);
+
+
+                            res = pg.consultar("SELECT subarea_id FROM user_subarea WHERE usernf_id = " + usernfid);
+                            areaid = Convert.ToString(res.Rows[0][0]);
+                            DropDownList3.SelectedValue = areaid;
+                            DropDownList3.Enabled = false;
+
+                            DropDownList3_SelectedIndexChanged(null, EventArgs.Empty);
+
+                            GridView1.DataSource = null;
+                            GridView1.DataBind();
+
+
+                            break;
+                    }
+                }
+               
+
+
 
             }
         }
