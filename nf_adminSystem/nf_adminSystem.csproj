@@ -70,7 +70,21 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\login.css" />
+    <Content Include="assets\img\banner.jpg" />
+    <Content Include="assets\img\bg.jpg" />
+    <Content Include="assets\img\bg.png" />
+    <Content Include="assets\img\dot.png" />
+    <Content Include="assets\img\flat-login-form-design-set.jpg" />
+    <Content Include="assets\img\key.png" />
+    <Content Include="assets\img\lock.png" />
+    <Content Include="assets\img\sm-user.png" />
+    <Content Include="assets\img\triangle.png" />
+    <Content Include="assets\img\user.png" />
+    <Content Include="assets\img\wdot.png" />
+    <Content Include="assets\img\whitedot.png" />
     <Content Include="Login.aspx" />
+    <Content Include="Login2.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="assets\css\main-style.css" />
     <Content Include="assets\css\style.css" />
@@ -104,6 +118,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login2.aspx.cs">
+      <DependentUpon>Login2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login2.aspx.designer.cs">
+      <DependentUpon>Login2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>
