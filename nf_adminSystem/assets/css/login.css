@@ -30,7 +30,7 @@ img{max-width:100%;}
 /*end reset*/
 /*--login form start here--*/ 
 body {
-   background:url(../assets/img/banner.jpg)no-repeat;
+   background:url(../images/banner.jpg)no-repeat;
    background-size: cover;
    padding:50px 0px 30px 0px;
    font-family: 'Open Sans', sans-serif;
@@ -97,7 +97,7 @@ h2 {
   padding: 37.5px 35px 30px 35px;
 }
 .login-bottom input[type="text"] {
-    background: url(../assets/img/sm-user.png)no-repeat 10px 10px #3B3B3B;
+    background: url(../images/sm-user.png)no-repeat 10px 10px #3B3B3B;
   outline: none;
   font-size: 14px;
   font-weight: 600;
@@ -109,7 +109,7 @@ h2 {
   -webkit-appearance: none;
 }
 .login-bottom input[type="password"]{
-    background: url(../assets/img/key.png) no-repeat 10px 11px #3F3F3F;
+    background: url(../images/key.png) no-repeat 10px 11px #3F3F3F;
   outline: none;
   font-size: 14px;
   font-weight: 600;
@@ -121,7 +121,7 @@ h2 {
   -webkit-appearance: none;
 }
 .login-bottom input[type="submit"] {
-  background: url(../assets/img/lock.png)no-repeat 9px 8px #91C445;
+  background: url(../images/lock.png)no-repeat 9px 8px #91C445;
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -134,7 +134,7 @@ h2 {
   cursor: pointer;
 }
 .login-bottom input[type="submit"]:hover {
-	  background: url(../assets/img/lock.png)no-repeat 9px 8px #7A7878;
+	  background: url(../images/lock.png)no-repeat 9px 8px #7A7878;
 }
 .send input[type="checkbox"] {
   display: none;
@@ -176,7 +176,7 @@ h2 {
 	-webkit-transition: opacity 0.1s;
 }
 .send .checkbox input + i:after {
-content: url(../assets/img/dot.png) no-repeat 11px 7px;
+content: url(../images/dot.png) no-repeat 11px 7px;
   top: 0px;
   left: -4px;
   width: 15px;
@@ -281,7 +281,7 @@ content: url(../assets/img/dot.png) no-repeat 11px 7px;
 	-webkit-transition: opacity 0.1s;
 }
 .greenbox-send .checkbox input + i:after {
-	content: url(../assets/img/wdot.png) no-repeat 11px 7px;
+	content: url(../images/wdot.png) no-repeat 11px 7px;
   top: 0px;
   left: -3.5px;
   width: 15px;
@@ -527,7 +527,7 @@ body {
 }
 @media(max-width:384px){
 .login-bottom input[type="submit"] {
-  background: url(../assets/img/lock.png)no-repeat 7px 6px #91C445;
+  background: url(../images/lock.png)no-repeat 7px 6px #91C445;
   font-size: 11px;
   width: 42%;	
 }
@@ -575,13 +575,13 @@ h2 {
   left: -3px;
 }
 .login-bottom input[type="submit"] {
-  background: url(../assets/img/lock.png)no-repeat 7px 7px #91C445;
+  background: url(../images/lock.png)no-repeat 7px 7px #91C445;
   font-size: 11px;
   padding: 8px 19px 8px 26px;
   width: 40%;
 }
 .login-bottom input[type="submit"]:hover {
-  background: url(../assets/img/lock.png)no-repeat 7px 7px #7A7878;
+  background: url(../images/lock.png)no-repeat 7px 7px #7A7878;
 }
 .send .checkbox {
  font-size: 13.3px;

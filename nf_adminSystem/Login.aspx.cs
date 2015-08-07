@@ -23,14 +23,19 @@ namespace nf_adminSystem
 
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
-            string query = "SELECT * FROM usernf WHERE LOWER(name)=LOWER('" + Login1.UserName + "') AND LOWER(password)=LOWER('" + Login1.Password + "') AND userlevel != 4";
-            DataTable dt = pg.consultar(query);
-            Label1.Text = Convert.ToString(dt.Rows.Count);
             
+            
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT * FROM usernf WHERE LOWER(name)=LOWER('" + userName.Text + "') AND LOWER(password)=LOWER('" + password.Text + "') AND userlevel != 4";
+            //string query = "SELECT * FROM usernf WHERE LOWER(name)=LOWER('usuari0o INstitucion uni') AND LOWER(password)=LOWER('123') AND userlevel != 4";
+            DataTable dt = pg.consultar(query);
+
             Session["algo"] = "algo";
             if (dt.Rows.Count == 1)
             {
-                Label1.Text = "si jalo";
                 Session["iID"] = dt.Rows[0][0];
                 Session["name"] = dt.Rows[0][1];
                 Session["password"] = dt.Rows[0][2];
@@ -39,13 +44,13 @@ namespace nf_adminSystem
                 Session["institution_id"] = dt.Rows[0][5];
                 Session["key"] = dt.Rows[0][6];
                 Session["verified"] = dt.Rows[0][7];
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet);
+                //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet);
+                FormsAuthentication.RedirectFromLoginPage("usuari0o INstitucion uni", true);
             }
             else
             {
-                Label1.Text = "no jalo";
+
             }
-            
         }
     }
 }

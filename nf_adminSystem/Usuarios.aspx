@@ -32,8 +32,13 @@
                                     </asp:DropDownList>
                                 </div>
 
+                                <div class ="col-lg-2" >
+                                    <asp:DropDownList ID="DropDownList4" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged" >
+                            
+                                    </asp:DropDownList>
+                                </div>
 
-                                <div class="col-lg-1 col-lg-offset-3"> 
+                                <div class="col-lg-1 col-lg-offset-1"> 
                                     <asp:LinkButton ID="newBtn" CssClass="btn btn-default fa fa-plus" OnClick="newBtn_Click" runat="server"></asp:LinkButton>
                                 </div>
 
@@ -54,7 +59,7 @@
                              </Columns>
                          </asp:GridView>
                         <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
-                
+                        <asp:GridView ID="GridView2" CssClass="bordered margin-top-30" OnRowDataBound="GridView1_RowDataBound" runat="server"></asp:GridView>
          
                     </ContentTemplate>
                 </asp:UpdatePanel>

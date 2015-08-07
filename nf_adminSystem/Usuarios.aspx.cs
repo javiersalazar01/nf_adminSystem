@@ -108,10 +108,6 @@ namespace nf_adminSystem
                             break;
                     }
                 }
-               
-
-
-
             }
         }
 
@@ -304,6 +300,9 @@ namespace nf_adminSystem
                 ViewState["tipoTabla"] = "institution";
                 DropDownList3.Items.Clear();
                 DropDownList3.Items.Add("Seleccione Area");
+
+                GridView2.DataSource = null;
+                GridView2.DataBind();
             }
             else
             {
@@ -325,6 +324,22 @@ namespace nf_adminSystem
                      "SELECT  u.\"iID\",u.name,u.password,u.mail FROM usernf u, user_area ua WHERE u.\"iID\" = ua.usernf_id  AND u.userlevel = 2 AND ua.area_id = "
                    );
                 ViewState["tipoTabla"] = "area";
+
+                DataTable dt = pg.consultar("SELECT s.\"iID\",s.name,s.description FROM area a, subarea s " +
+                    "where a.\"iID\" = s.area_id AND a.\"iID\" = " + DropDownList2.SelectedValue);
+
+                DropDownList4.DataSource = dt;
+                DropDownList4.DataTextField = "name";
+                DropDownList4.DataValueField = "iID";
+                DropDownList4.DataBind();
+
+                ListItem l = new ListItem();
+                l.Text = "--Seleccione SubArea--";
+                l.Value = "0";
+                DropDownList4.Items.Insert(0, l);
+
+                GridView2.DataSource = null;
+                GridView2.DataBind();
             }
             else
             {
@@ -339,7 +354,8 @@ namespace nf_adminSystem
                 cambio(DropDownList3,
                    "select u.\"iID\",u.name,u.password,u.mail from usernf u, user_subarea us where u.\"iID\" = us.usernf_id AND userlevel = 3 AND us.subarea_id = ");
                 ViewState["tipoTabla"] = "subarea";
-
+                GridView2.DataSource = null;
+                GridView2.DataBind();
             }
             else
             {
@@ -347,6 +363,28 @@ namespace nf_adminSystem
             }
             
         }
+
+        protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView2.SelectedIndex = -1;
+            string id = DropDownList4.SelectedValue;
+
+            //Response.Write("<script>alert('"+query+"');</script>");
+            DataTable dt = pg.consultar("SELECT u.\"iID\",u.name,u.password,u.mail FROM subarea_user su,usernf u where u.\"iID\" = su.user_id AND subarea_id = " + id);
+
+            GridView2.DataSource = dt;
+            GridView2.DataBind();
+            //if (GridView2.Rows.Count == 0)
+            //{
+            //    Label2.Text = "No Existen Registros.";
+            //    Label2.Font.Size = FontUnit.Larger;
+            //}
+            //else
+            //{
+            //    Label2.Text = "";
+            //}
+        }
+
         private void nuevo(string header) {
             newHeader.Text = header;
             submitEditarInstitution.Text = "Crear";
@@ -583,6 +621,8 @@ namespace nf_adminSystem
         {
             mpeNuevoUsuario.Hide();
         }
+
+        
         
     }
 }
